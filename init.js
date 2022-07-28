@@ -1,10 +1,13 @@
 const User = require('./models/user.model')
+const Ticket = require('./models/ticket.model')
 const bcrypt = require('bcryptjs')
 
 module.exports = async ()=>{
     try{
         await User.collection.drop();
         console.log("#### User collection dropped ####");
+        await Ticket.collection.drop();
+        console.log("#### Ticket collection dropped ####");
         /*
         const user = await ser.findOne({userId : "admin"})
 

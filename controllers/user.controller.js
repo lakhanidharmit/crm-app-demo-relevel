@@ -46,7 +46,7 @@ exports.update = async(req,res)=>{
         user.name = req.body.name != undefined ? req.body.name : user.name
         user.userType = req.body.userType != undefined ? req.body.userType : user.userType
         const updatedUser = await user.save();
-        console.log(`#### User ${updatedUser.name} updated ####`);
+        console.log(`#### ${updatedUser.userType} ${updatedUser.name} data updated ####`);
         res.status(200).send({
             name : updatedUser.name,
             userId : updatedUser.userId,

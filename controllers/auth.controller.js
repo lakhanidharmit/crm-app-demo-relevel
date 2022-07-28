@@ -30,7 +30,7 @@ exports.signup = async (req,res)=>{
             createdAt : userCreated.createdAt,
             updatedAt : userCreated.updatedAt
         }
-        console.log(`#### User ${response.name} created ####`);
+        console.log(`#### ${response.userType} ${response.name} created ####`);
         res.status(201).send(response);
     }catch(err){
         console.log("#### Some error happened ####", err.message);
@@ -63,7 +63,7 @@ exports.signin = async (req,res)=>{
         }
 
         const token = jwt.sign({id: user.userId}, authConfig.secret, {expiresIn : 600});
-        console.log(`#### User ${user.name} logged in ####`);
+        console.log(`#### ${response.userType} ${user.name} logged in ####`);
 
         res.status(200).send({
             name : user.name,
