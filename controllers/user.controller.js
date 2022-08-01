@@ -51,7 +51,7 @@ exports.update = async(req,res)=>{
             name : updatedUser.name,
             userId : updatedUser.userId,
             email : updatedUser.email,
-            userTypes : updatedUser.userTypes,
+            userType : updatedUser.userType,
             userStatus : updatedUser.userStatus
         })
     }catch(err){
