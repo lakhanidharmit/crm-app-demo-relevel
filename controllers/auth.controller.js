@@ -20,7 +20,6 @@ exports.signup = async (req,res)=>{
 
     try{
         const userCreated = await User.create(userObj);
-        console.log(userCreated);
         const response = {
             name : userCreated.name,
             userId : userCreated.userId,
@@ -63,7 +62,7 @@ exports.signin = async (req,res)=>{
         }
 
         const token = jwt.sign({id: user.userId}, authConfig.secret, {expiresIn : 600});
-        console.log(`#### ${response.userType} ${user.name} logged in ####`);
+        console.log(`#### ${user.userType} ${user.name} logged in ####`);
 
         res.status(200).send({
             name : user.name,

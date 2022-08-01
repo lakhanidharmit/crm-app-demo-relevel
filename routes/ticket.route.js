@@ -1,7 +1,8 @@
 const ticketController = require('../controllers/ticket.controller');
-const {authJwt, verifyTicketBody} = require('../middlewares')
+const {authJwt, verifyTicket} = require('../middlewares')
 
 module.exports = (app)=>{
-    // add middleware for validation of req body (title,description,engineer available)
-    app.post("/crm/api/v1/tickets/", [authJwt.verifyToken, verifyTicketBody.validateTicketBody], ticketController.createTicket);
+    app.post("/crm/api/v1/tickets/", [authJwt.verifyToken, verifyTicket.validateNewTicketBody], ticketController.createTicket);
+    app.get("/crm/api/v1/tickets/", [authJwt.verifyToken], ticketController.getAllTickets)
+    app.put("/crm/api/v1/tickets/:id", [authJwt.verifyToken, verifyTicket.isValidOwnerOfTheTicket], ticketController.updateTicket)
 }
