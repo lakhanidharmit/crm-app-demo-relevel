@@ -1,6 +1,7 @@
 const Ticket = require('../models/ticket.model')
 const User = require('../models/user.model')
 const constants = require("../utils/constants")
+const sendNotificationReq = require('../utils/notificationClient')
 
 exports.createTicket = async (req,res)=>{
     try{
@@ -12,12 +13,6 @@ exports.createTicket = async (req,res)=>{
             reporter : req.userId
         }
     
-        // find engineer with least open tickets
-        // const engineer = await User.findOne({
-        //     userType : constants.userTypes.engineer,
-        //     userStatus : constants.userStatus.approved
-        // });
-
         const engineerarray = await User.find({
             userType : constants.userTypes.engineer,
             userStatus : constants.userStatus.approved
@@ -43,6 +38,14 @@ exports.createTicket = async (req,res)=>{
                 engineer.ticketsAssigned.push(ticketCreated._id);
                 await engineer.save()
             }
+
+            sendNotificationReq(
+                `Ticket created with id ${ticketCreated._id}`, 
+                "this is test message", 
+                `${ticketCreated.reporter}, ${ticketCreated.assignee}, dharmitmailer+crmadmin@gmail.com`, 
+                "CRM app"
+            );
+            
             console.log(`#### New ticket '${ticketCreated.title}' created by ${customer.name} ####`);
             res.status(201).send(ticketCreated)
         }
